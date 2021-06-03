@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './App';
-import { Button } from 'antd';
+import App from './App';
 //引入样式
 import './assets/styles/index.scss'
 
 ReactDOM.render(
-  <Button type="primary">Primary Button</Button>,
+  <App />,
   document.getElementById('root')
 );
