@@ -24,13 +24,15 @@ request.interceptors.response.use(
     参数二拦截失败的回调 */
   (res) => {
     if (res.data.code === 1) {
-      console.log('拦截器响应',res);
-      return res.data;
+      const result = res.data.data;
+      console.log('拦截器响应',result);
+      return result;
     } else {
       return Promise.reject(res);
     }
   },
   (err) => {
+    console.log(err);
     return Promise.reject(err);
   }
 );

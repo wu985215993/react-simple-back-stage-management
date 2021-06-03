@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Layout, Menu } from "antd";
 import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import { withRouter } from "react-router-dom";
 
@@ -33,7 +31,7 @@ class MySider extends Component {
             <Menu.Item key="/nav/home">首页</Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="账号管理">
               <Menu.Item key="/nav/accountList">账号列表</Menu.Item>
-              <Menu.Item key="/nav/addAccountList">添加帐号</Menu.Item>
+              <Menu.Item key="/nav/addAccount">添加帐号</Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<UserOutlined />} title="店铺管理">
               <Menu.Item key="/nav/shopsList">店铺列表</Menu.Item>

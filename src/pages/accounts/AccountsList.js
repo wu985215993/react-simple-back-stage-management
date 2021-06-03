@@ -48,27 +48,27 @@ export default class AccountsList extends Component {
   async handleDelete(id) {
     const result = await handleDeleteApi(id);
     console.log('result',result);
-    // if (result.code) {
-    //   const newResult = await getAccountListApi();
-    //   this.setState({
-    //     data: newResult.data.data,
-    //   });
-    //   notification.success({ message: "删除成功" });
-    // } else {
-    //   notification.error({ message: "删除失败" });
-    // }
+    const newResult = await getAccountListApi();
+    this.setState({
+      data: newResult.data.map(item => {item.key = item.account; return item}),
+    });
   }
   async componentDidMount() {
     const result = await getAccountListApi();
     this.setState({
-      data: result.data.data,
+      data: result.data.map(item => {item.key = item.account; return item}),
+    },()=> {
     });
   }
+  toAddAccount = () => {
+    this.props.history.push('/nav/addAccount')
+  }
   render() {
+    console.log('render');
     const { columns, data } = this.state;
     return (
       <>
-        <Button style={{ color: "#595959", marginBottom: 20 }}>添加帐号</Button>
+        <Button style={{ color: "#595959", marginBottom: 20 }} onClick={this.toAddAccount}>添加帐号</Button>
         <Table
           columns={columns}
           dataSource={data}

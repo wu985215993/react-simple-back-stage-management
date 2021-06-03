@@ -40,7 +40,7 @@ export default class MyContent extends Component {
                 )}
               ></Route>
               <Route
-                path="/nav/addAccountList"
+                path="/nav/addAccount"
                 component={React.lazy(() =>
                   import("../pages/accounts/AddAccount")
                 )}

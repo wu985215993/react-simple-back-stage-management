@@ -21,8 +21,7 @@ export default class Login extends Component {
     // console.log("Success:", values);
     try  {
 
-      const result = await loginApi(values);
-      const { token, userInfo } = result.data;
+      const { token, userInfo } = await loginApi(values);
       //登录成功 1.把token和 userInfo存到本地存储 2.跳转路由
       localStorage.setItem("token", token);
       localStorage.setItem("userInfo", JSON.stringify(userInfo));

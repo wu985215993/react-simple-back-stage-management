@@ -32,6 +32,7 @@ class MyHeader extends Component {
             <img
               style={{ width: 40, height: 40, borderRadius: 40 }}
               src={`http://jacklv.cn/images/${userInfo.imgUrl}`}
+              alt={'Avatar'}
             />
           </div>
           <Menu
