@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Table ,Button ,notification} from "antd";
+import { Table, Button, notification } from "antd";
 
 import { getAccountListApi, handleDeleteApi } from "../../apis/users";
 
@@ -46,29 +46,46 @@ export default class AccountsList extends Component {
     };
   }
   async handleDelete(id) {
-    const result = await handleDeleteApi(id);
-    console.log('result',result);
-    const newResult = await getAccountListApi();
-    this.setState({
-      data: newResult.data.map(item => {item.key = item.account; return item}),
-    });
+    try {
+      const result = await handleDeleteApi(id);
+      const newResult = await getAccountListApi();
+      this.setState({
+        data: newResult.data.map((item) => {
+          item.key = item.account;
+          return item;
+        }),
+      });
+      notification.success({ message: "删除账号成功" });
+    } catch (err) {
+      notification.error({ message: "删除账号失败" });
+    }
   }
   async componentDidMount() {
     const result = await getAccountListApi();
-    this.setState({
-      data: result.data.map(item => {item.key = item.account; return item}),
-    },()=> {
-    });
+    this.setState(
+      {
+        data: result.data.map((item) => {
+          item.key = item.account;
+          return item;
+        }),
+      },
+      () => {}
+    );
   }
   toAddAccount = () => {
-    this.props.history.push('/nav/addAccount')
-  }
+    this.props.history.push("/nav/addAccount");
+  };
   render() {
-    console.log('render');
+    console.log("render");
     const { columns, data } = this.state;
     return (
       <>
-        <Button style={{ color: "#595959", marginBottom: 20 }} onClick={this.toAddAccount}>添加帐号</Button>
+        <Button
+          style={{ color: "#595959", marginBottom: 20 }}
+          onClick={this.toAddAccount}
+        >
+          添加帐号
+        </Button>
         <Table
           columns={columns}
           dataSource={data}
