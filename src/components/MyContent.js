@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Layout, Breadcrumb } from "antd";
+
 const { Content } = Layout;
 export default class MyContent extends Component {
   render() {
@@ -18,6 +19,8 @@ export default class MyContent extends Component {
               padding: 24,
               margin: 0,
               minHeight: 280,
+              backgroundColor: '#fff',
+              height: '100%'
             }}
           >
             <Switch>
@@ -40,6 +43,18 @@ export default class MyContent extends Component {
                 path="/nav/addAccountList"
                 component={React.lazy(() =>
                   import("../pages/accounts/AddAccount")
+                )}
+              ></Route>
+              <Route
+                path="/nav/shopsList"
+                component={React.lazy(() =>
+                  import("../pages/shops/ShopsList")
+                )}
+              ></Route>
+              <Route
+                path="/nav/addShop"
+                component={React.lazy(() =>
+                  import("../pages/shops/AddShop")
                 )}
               ></Route>
             </Switch>

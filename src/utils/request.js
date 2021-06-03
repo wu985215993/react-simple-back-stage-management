@@ -7,7 +7,11 @@ export const request = axios.create({
 /* 请求拦截器 */
 request.interceptors.request.use(
   (req) => {
-      return req
+    const token = localStorage.token;
+    // 将 token 添加到请求头中
+    req.headers.token = token;
+    console.log('请求拦截器',req);
+    return req;
   },
   (err) => {
     return Promise.reject(err);
@@ -20,7 +24,8 @@ request.interceptors.response.use(
     参数二拦截失败的回调 */
   (res) => {
     if (res.data.code === 1) {
-      return res.data.data;
+      console.log('拦截器响应',res);
+      return res.data;
     } else {
       return Promise.reject(res);
     }
