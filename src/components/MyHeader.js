@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu,Modal } from "antd";
 import { withRouter } from "react-router-dom";
 
 const { Header } = Layout;
 class MyHeader extends Component {
+  state = {
+    isModalVisible:false
+  }
   clickMenuItem = (params) => {
     const { key } = params;
     switch (key) {
@@ -11,12 +14,26 @@ class MyHeader extends Component {
         this.props.history.push("/nav/userCenter");
         break;
       case "logout":
-        this.props.history.push("/nav/userCenter");
+        this.setState({isModalVisible:true});
+        // this.props.history.push("/nav/userCenter");
         break;
       default:
     }
   };
+  handleOk = () => {
+    //清空本地存储
+    localStorage.clear();
+    //跳转到登录
+    this.props.history.push('/login')
+    // this.setState({isModalVisible:false});
+  };
+
+  handleCancel = () => {
+    this.setState({isModalVisible:false});
+
+  };
   render() {
+    const {isModalVisible} = this.state;
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     return (
       <>
@@ -32,7 +49,7 @@ class MyHeader extends Component {
             <img
               style={{ width: 40, height: 40, borderRadius: 40 }}
               src={`http://jacklv.cn/images/${userInfo.imgUrl}`}
-              alt={'Avatar'}
+              alt={"Avatar"}
             />
           </div>
           <Menu
@@ -40,12 +57,20 @@ class MyHeader extends Component {
             mode="horizontal"
             defaultSelectedKeys={["/nav/userCenter"]}
             onClick={this.clickMenuItem}
-            style={{width: 192}}
+            style={{ width: 192 }}
           >
             <Menu.Item key="/nav/userCenter">个人中心</Menu.Item>
             <Menu.Item key="logout">退出登录</Menu.Item>
           </Menu>
         </Header>
+        <Modal
+            title="提示"
+            visible={isModalVisible}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+          >
+            您确定要退出登录吗
+          </Modal>
       </>
     );
   }

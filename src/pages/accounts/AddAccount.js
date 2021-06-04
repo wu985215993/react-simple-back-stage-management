@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Checkbox, notification, Select } from "antd";
+import { Form, Input, Button, notification, Select } from "antd";
 import { addOrEditAccountApi } from "../../apis/users";
 
 const { Option } = Select;
@@ -28,11 +28,10 @@ export default class AddAccount extends Component {
     // console.log("Success:", values);
     try{
         const result = await addOrEditAccountApi(values);
-      notification.success({ message: "添加账号成功" });
+      notification.success({ message: `添加账号${result.account}成功` });
 
     }catch(err){
-        console.log(err);
-        notification.error({ message: "输入不正确" });
+        notification.error({ message: err.data.msg });
     }
     
   };
@@ -40,7 +39,7 @@ export default class AddAccount extends Component {
     // console.log("Failed:", errorInfo);
   };
   handleChange(value) {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
   }
   render() {
     return (

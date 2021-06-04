@@ -10,7 +10,7 @@ request.interceptors.request.use(
     const token = localStorage.token;
     // 将 token 添加到请求头中
     req.headers.token = token;
-    console.log('请求拦截器',req);
+    // console.log('请求拦截器',req);
     return req;
   },
   (err) => {
@@ -25,7 +25,7 @@ request.interceptors.response.use(
   (res) => {
     if (res.data.code === 1) {
       const result = res.data.data;
-      console.log('拦截器响应',result);
+      // console.log('拦截器响应',result);
       return result;
     } else {
       return Promise.reject(res);

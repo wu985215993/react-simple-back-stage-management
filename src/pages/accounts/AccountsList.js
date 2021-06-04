@@ -45,7 +45,7 @@ export default class AccountsList extends Component {
       data: [],
     };
   }
-  async handleDelete(id) {
+  handleDelete = async (id) => {
     try {
       const result = await handleDeleteApi(id);
       const newResult = await getAccountListApi();
@@ -55,11 +55,11 @@ export default class AccountsList extends Component {
           return item;
         }),
       });
-      notification.success({ message: "删除账号成功" });
+      notification.success({ message: `删除账号${result.account}成功` });
     } catch (err) {
       notification.error({ message: "删除账号失败" });
     }
-  }
+  };
   async componentDidMount() {
     const result = await getAccountListApi();
     this.setState(
@@ -76,7 +76,7 @@ export default class AccountsList extends Component {
     this.props.history.push("/nav/addAccount");
   };
   render() {
-    console.log("render");
+    // console.log("render");
     const { columns, data } = this.state;
     return (
       <>

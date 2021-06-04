@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 //引入路由核心组件
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-
+import {ConfigProvider} from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
 
 export default class App extends Component {
   render() {
     return (
+      <ConfigProvider locale={zhCN}>
       <React.Suspense fallback={<div>加载中...</div>}>
         <HashRouter>
           <Switch>
@@ -21,6 +23,7 @@ export default class App extends Component {
           </Switch>
         </HashRouter>
       </React.Suspense>
+      </ConfigProvider>
     );
   }
 }
