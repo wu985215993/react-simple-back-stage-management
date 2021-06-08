@@ -32,7 +32,16 @@ request.interceptors.response.use(
     }
   },
   (err) => {
-    console.log(err);
+    // console.log(err);
+    const status = err.response.status;
+    switch(status){
+      case 401:
+          //清空本地存储，并跳转到登录
+          localStorage.clear();
+          window.location.hash = 'login'
+          break
+      default:
+    }
     return Promise.reject(err);
   }
 );

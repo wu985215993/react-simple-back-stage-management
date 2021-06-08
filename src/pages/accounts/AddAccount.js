@@ -26,21 +26,23 @@ const tailLayout2 = {
 export default class AddAccount extends Component {
   onFinish = async (values) => {
     // console.log("Success:", values);
-    try{
-        const result = await addOrEditAccountApi(values);
+    try {
+      const result = await addOrEditAccountApi(values);
       notification.success({ message: `添加账号${result.account}成功` });
-
-    }catch(err){
-        notification.error({ message: err.data.msg });
+      /* 重置表单，低啊用表单实例对象上面的resetFields 这个方法 
+         获取Form表单的组件实例ref（获取节点 和组件实例）
+      */
+      this.formInstance.resetFields(["account", "password", "userGroup"]);
+    } catch (err) {
+      notification.error({ message: err.data.msg });
     }
-    
   };
-  onFinishFailed = (errorInfo) => {
-    // console.log("Failed:", errorInfo);
-  };
-  handleChange(value) {
-    // console.log(`selected ${value}`);
-  }
+  // onFinishFailed = (errorInfo) => {
+  //   // console.log("Failed:", errorInfo);
+  // };
+  // handleChange(value) {
+  //   // console.log(`selected ${value}`);
+  // }
   render() {
     return (
       <>
@@ -54,6 +56,7 @@ export default class AddAccount extends Component {
           onFinish={this.onFinish}
           onFinishFailed={this.onFinishFailed}
           style={{ display: "flex", flexDirection: "column", width: "50%" }}
+          ref={(instance) => (this.formInstance = instance)}
         >
           <Form.Item
             label="账户名"
@@ -65,7 +68,7 @@ export default class AddAccount extends Component {
               },
             ]}
           >
-            <Input />
+            <Input placeholder="请输入帐号" />
           </Form.Item>
 
           <Form.Item
@@ -78,13 +81,15 @@ export default class AddAccount extends Component {
               },
             ]}
           >
-            <Input.Password />
+            <Input.Password
+              placeholder="请输入密码"
+              autoComplete="new-password" //禁用浏览器的默认表单的行为
+            />
           </Form.Item>
 
           <Form.Item
             {...tailLayout2}
             name="userGroup"
-            valuePropName="selected"
             label="角色"
             rules={[
               {
@@ -93,7 +98,7 @@ export default class AddAccount extends Component {
               },
             ]}
           >
-            <Select style={{ width: 120 }} onChange={this.handleChange}>
+            <Select style={{ width: 120 }} placeholder="请选择角色">
               <Option value="超级管理员">超级管理员</Option>
               <Option value="普通管理员">普通管理员</Option>
             </Select>

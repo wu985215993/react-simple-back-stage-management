@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Table, Button, notification } from "antd";
+import { Table, Button, notification, Popconfirm } from "antd";
 
 import { getAccountListApi, handleDeleteApi } from "../../apis/users";
 
@@ -33,44 +33,54 @@ export default class AccountsList extends Component {
           dataIndex: "options",
           width: 200,
           render: (text, record) => (
-            <Button
-              type="primary"
-              onClick={this.handleDelete.bind(this, record._id)}
+            <Popconfirm
+              title="您确定要删除吗?"
+              onConfirm={() => this.confirm(record._id)}//点击确认的回调
+              onCancel={this.cancel}//点击取消的回调
             >
-              删除
-            </Button>
+              <Button
+                type="primary"
+              >
+                删除
+              </Button>
+            </Popconfirm>
           ),
         },
       ],
-      data: [],
+      data: []
     };
   }
   handleDelete = async (id) => {
     try {
       const result = await handleDeleteApi(id);
-      const newResult = await getAccountListApi();
-      this.setState({
-        data: newResult.data.map((item) => {
-          item.key = item.account;
-          return item;
-        }),
-      });
+      this.getUserList();
       notification.success({ message: `删除账号${result.account}成功` });
     } catch (err) {
       notification.error({ message: "删除账号失败" });
     }
   };
+  getUserList = async () => {
+    const newResult = await getAccountListApi();
+    this.setState({
+      data: newResult.data.map((item) => {
+        item.key = item.account;
+        return item;
+      }),
+    })
+  }
+  //确认删除
+  confirm = async (id) => {
+    const result = await handleDeleteApi(id);
+    //删除成功更新数据
+    this.getUserList();
+    notification.success({ message: `删除账号${result.account}成功` });
+  }
+  //取消删除
+  cancel = () => {
+
+  }
   async componentDidMount() {
-    const result = await getAccountListApi();
-    this.setState(
-      {
-        data: result.data.map((item) => {
-          item.key = item.account;
-          return item;
-        }),
-      },
-      () => {}
-    );
+    this.getUserList();
   }
   toAddAccount = () => {
     this.props.history.push("/nav/addAccount");
@@ -87,6 +97,7 @@ export default class AccountsList extends Component {
           添加帐号
         </Button>
         <Table
+          rowKey="_id"
           columns={columns}
           dataSource={data}
           pagination={{ defaultPageSize: 5 }}
