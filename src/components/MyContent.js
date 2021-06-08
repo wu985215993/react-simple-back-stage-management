@@ -33,16 +33,28 @@ export default class MyContent extends Component {
                 path="/nav/userCenter"
                 component={React.lazy(() => import("../pages/UserCenter"))}
               ></Route>
-              <Route
+              {/* <Route
                 path="/nav/accountList"
                 component={React.lazy(() =>
                   import("../pages/accounts/AccountsList")
                 )}
-              ></Route>
+              ></Route> */}
               <Route
+                path="/nav/accountList"
+                component={React.lazy(() =>
+                  import("../pages/accounts/AccountsListFunctional")
+                )}
+              ></Route>
+              {/* <Route
                 path="/nav/addAccount"
                 component={React.lazy(() =>
                   import("../pages/accounts/AddAccount")
+                )}
+              ></Route> */}
+              <Route
+                path="/nav/addAccount"
+                component={React.lazy(() =>
+                  import("../pages/accounts/AddAccountFunctional")
                 )}
               ></Route>
               <Route

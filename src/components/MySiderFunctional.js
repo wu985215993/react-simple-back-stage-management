@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { withRouter,useHistory,useLocation } from "react-router-dom";
+import { useHistory,useLocation } from "react-router-dom";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
