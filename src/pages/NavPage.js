@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Layout, } from "antd";
 import MyHeader from "../components/MyHeader";
-import MySider from "../components/MySider";
+// import MySider from "../components/MySider";
+import MySiderFunctional from "../components/MySiderFunctional";
 import MyContent from "../components/MyContent";
 
 export default class NavPage extends Component {
@@ -12,7 +13,8 @@ export default class NavPage extends Component {
         <MyHeader />
         <Layout>
           {/* 左侧菜单栏 */}
-          <MySider />
+          {/* <MySider /> */}
+          <MySiderFunctional />
           {/* 右侧内容区 */}
           <MyContent />
         </Layout>

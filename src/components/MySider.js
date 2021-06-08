@@ -16,7 +16,7 @@ class MySider extends Component {
       localStorage.removeItem("subMenuKey");
     }
     this.props.history.push(path);
-  };
+  }
   render() {
     return (
       <>
@@ -37,6 +37,7 @@ class MySider extends Component {
               <Menu.Item key="/nav/shopsList">店铺列表</Menu.Item>
               <Menu.Item key="/nav/addShop">添加店铺</Menu.Item>
             </SubMenu>
+              <Menu.Item key="/nav/functionalComponent">函数组件</Menu.Item>
           </Menu>
         </Sider>
       </>

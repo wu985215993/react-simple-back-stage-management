@@ -57,6 +57,12 @@ export default class MyContent extends Component {
                   import("../pages/shops/AddShop")
                 )}
               ></Route>
+              <Route
+                path="/nav/functionalComponent"
+                component={React.lazy(() =>
+                  import("./FunctionalComponent")
+                )}
+              ></Route>
             </Switch>
           </Content>
         </Layout>
