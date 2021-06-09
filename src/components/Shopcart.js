@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getShopcartApi,changeNumApi } from "../apis/shopcart";
+import { getShopcartApi, changeNumApi } from "../apis/shopcart";
 export default function Shopcart() {
-  const {list} = useSelector((state) => {
+  const { list } = useSelector((state) => {
     return { list: state.shopcart.list };
   });
   const dispatch = useDispatch();
@@ -16,8 +16,8 @@ export default function Shopcart() {
       payload: data,
     });
   }
-  async function changeNum(_id,n){
-    await changeNumApi({_id,n});
+  async function changeNum(_id, n) {
+    await changeNumApi({ _id, n });
     //更新数据
     getData();
   }
@@ -40,9 +40,9 @@ export default function Shopcart() {
                 <td>{item.name}</td>
                 <td>{item.price}</td>
                 <td>
-                  <button onClick={() => changeNum(item._id,-1)}>-</button>
+                  <button onClick={() => changeNum(item._id, -1)}>-</button>
                   {item.num}
-                  <button onClick={() => changeNum(item._id,1)}>+</button>
+                  <button onClick={() => changeNum(item._id, 1)}>+</button>
                 </td>
                 <td>{item.price}</td>
                 <td>
