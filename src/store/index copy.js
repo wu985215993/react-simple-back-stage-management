@@ -1,6 +1,6 @@
-import { createStore,combineReducers } from "redux";
+// import { createStore,combineReducers } from "redux";
 
-import bigReducer from './reducers/index'
+// import bigReducer from './reducers/index'
 
 //对模块进行拆分
 //合并reducer
@@ -11,7 +11,7 @@ import bigReducer from './reducers/index'
 })
  */
 
-export default createStore(bigReducer);
+// export default createStore(bigReducer);
 /* function reducer(state = { count: 0,list:[] }, action) {
   switch (action.type) {
     case "add":
@@ -56,3 +56,16 @@ export default createStore(bigReducer);
   }
 }
  */
+
+/* 
+  中间件的应用
+*/
+import { createStore , applyMiddleware } from 'redux'
+import bigReducer from './reducers/index'
+import logger from 'redux-logger'
+import createSagaMiddleware from 'redux-saga'
+import rootSage from './sages/index'
+const sagaMiddleware = createSagaMiddleware()
+
+export default createStore(bigReducer,applyMiddleware(logger,sagaMiddleware));
+sagaMiddleware.run(rootSage)

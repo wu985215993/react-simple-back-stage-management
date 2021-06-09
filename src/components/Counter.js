@@ -32,11 +32,18 @@ class Counter extends Component {
       payload: 2,
     });
   };
+  asyncAdd = () => {
+    this.props.dispatch({
+      type: "watchAdd",
+      payload: 5,
+    });
+  };
+
   render() {
     return (
       <div>
         {this.props.count}
-        <button onClick={this.change}>点我修改</button>
+        <button onClick={this.asyncAdd}>点我修改</button>
       </div>
     );
   }
@@ -44,7 +51,7 @@ class Counter extends Component {
 //作用：把状态机里面的数据取出来，以外部属性的方式给到外部组件
 const mapStateToProps = (state) => {
   return {
-    count: state.count,
+    count: state.counter.count,
   };
 };
 export default connect(mapStateToProps)(Counter);
