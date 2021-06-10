@@ -1,13 +1,21 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button, notification, Popconfirm } from "antd";
 
-import { getAccountListApi, handleDeleteApi } from "../../apis/users";
+import { handleDeleteApi } from "../../apis/users";
 
 export default function AccountsListFunctional() {
   const history = useHistory();
-  const [data, setData] = useState([]);
+  
+  // const [data, setData] = useState([]);
+  const {data} = useSelector(({users}) => {
+    return {
+        ...users,
+    }
+  })
+
   const [columns, setColumns] = useState([
     {
       title: "账户名",
@@ -43,19 +51,25 @@ export default function AccountsListFunctional() {
       ),
     },
   ]);
-	useEffect(()=>{
-		getUserList()
-	},[])
-  async function handleDelete(id) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // getUserList();
+    dispatch({
+      type: "watchGetUserList"
+    })
+  }, []);
+  /* async function handleDelete(id) {
     try {
       const result = await handleDeleteApi(id);
-      getUserList();
+      dispatch({
+        type: "watchGetUserList"
+      })
       notification.success({ message: `删除账号${result.account}成功` });
     } catch (err) {
       notification.error({ message: "删除账号失败" });
     }
-  }
-  async function getUserList() {
+  } */
+  /* async function getUserList() {
     const newResult = await getAccountListApi();
     setData(
       newResult.data.map((item) => {
@@ -63,13 +77,15 @@ export default function AccountsListFunctional() {
         return item;
       })
     );
-  }
+  } */
   //确认删除
   async function confirm(id) {
-    const result = await handleDeleteApi(id);
-    //删除成功更新数据
-    getUserList();
-    notification.success({ message: `删除账号${result.account}成功` });
+    dispatch({
+      type: "watchDelete",
+      payload: id,
+    })
+    
+    // notification.success({ message: `删除账号${result.account}成功` });
   }
   //取消删除
   function cancel() {}

@@ -66,7 +66,8 @@ import bigReducer from './reducers/index'
 import logger from 'redux-logger'
 
 import createSagaMiddleware from 'redux-saga'
-import rootSage from './sages/index'
+import rootSage from './sages/indexMerge'
+// import rootSage from './sages/index'
 const sagaMiddleware = createSagaMiddleware()
 
 export default createStore(bigReducer,applyMiddleware(logger,sagaMiddleware));
